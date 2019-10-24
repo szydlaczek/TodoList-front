@@ -1,8 +1,16 @@
 import React from 'react'
-import {Button, Form, FormControl, Row, Container, Card } from 'react-bootstrap'
+import {  useDispatch } from "react-redux";
+import {Button,  Card } from 'react-bootstrap'
+import * as service from './../Services/TaskService';
 
 export default  (props) => {
-    console.log(props.taskItem)
+    
+    const dispatch = useDispatch();
+    
+    const setStatus = () => {
+        alert(props.taskItem.id);
+        dispatch(service.StartTask(props.taskItem.id));
+    }
     return (
         <Card>
             <Card.Header>{props.taskItem.topic}</Card.Header>
@@ -11,7 +19,7 @@ export default  (props) => {
                 <Card.Text>
                 With supporting text below as a natural lead-in to additional content.
                 </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
+                <Button variant="primary" onClick = {()=> setStatus() }>{props.taskItem.status}</Button>
             </Card.Body>
         </Card>
     )

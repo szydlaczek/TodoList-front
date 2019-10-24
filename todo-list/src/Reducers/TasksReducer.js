@@ -1,4 +1,4 @@
-import * as ACTION_TYPES from './../Actions/Action_types'
+import * as ACTIONTYPES from '../Actions/ActionTypes'
 import update from 'react-addons-update';
 
 const initialState = {
@@ -8,16 +8,20 @@ const initialState = {
 export const tasksReducer = (state = initialState, action) => {
     
     switch(action.type) {
-        case ACTION_TYPES.TASKS_FETCHED:
+        case ACTIONTYPES.TASKS_FETCHED:
             const tasks = action.payload;
 
             return {...state, tasks};
         
-        case ACTION_TYPES.TASK_STARTED:
+        case ACTIONTYPES.TASK_STARTED:
+            var taskIndex = state.tasks.findIndex((t) => 
+                t.id === action.payload
+            )
+            alert (taskIndex);
             return update(state, {
                 tasks: {
-                    [action.payload] : {
-                        
+                    [taskIndex] : {
+                            status : {$set: 1}
                     }
                 }
             })
