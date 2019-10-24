@@ -1,8 +1,16 @@
-export const TASK_FETCHED = "REWARDS_FETCHED";
+export const TASKS_FETCHED = "TASKS_FETCHED";
+export const TASK_STARTED = "TASK_STARTED";
 
 export const tasksFetched = (data) => {
     return {
-        type: TASK_FETCHED,
+        type: TASKS_FETCHED,
         payload: data,
+    }
+}
+
+export const taskStarted = (taskId) => {
+    return {
+        type: TASK_STARTED,
+        payload: taskId,
     }
 }

@@ -20,5 +20,8 @@ export const GetTasks = (title) => async dispatch => {
     catch {
 
     }
+}
 
+export const StartTask = (taskId) => async dispatch => {
+    
 }
