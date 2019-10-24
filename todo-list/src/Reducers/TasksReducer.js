@@ -14,16 +14,24 @@ export const tasksReducer = (state = initialState, action) => {
             return {...state, tasks};
         
         case ACTIONTYPES.TASK_STARTED:
-            var taskIndex = state.tasks.findIndex((t) => 
+            const taskIndex = state.tasks.findIndex((t) => 
                 t.id === action.payload
             )
-            alert (taskIndex);
+            
             return update(state, {
                 tasks: {
                     [taskIndex] : {
-                            status : {$set: 1}
+                            status : {$set: action.status}
                     }
                 }
+            })
+        case ACTIONTYPES.TASK_ENDED:
+                const taskToRemoveIndex = state.tasks.findIndex((t) => 
+                t.id === action.payload
+            )
+
+            return update(state, {
+                tasks: { $splice: [[taskToRemoveIndex,1]] }
             })
 
         default:

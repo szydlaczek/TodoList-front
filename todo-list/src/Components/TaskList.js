@@ -1,14 +1,17 @@
 import React from 'react';
-import {Button, Form, FormControl, Row, Container, Col } from 'react-bootstrap'
+import {Row, Container, Col, Spinner } from 'react-bootstrap'
 import TaskItem from './TaskItem';
+
 export default  (props) => {
-    
+
     return (
         <React.Fragment>
-            <Container>                
+            <Container>
+                
+                           
                 {props.taskList.map((task) => 
-                    <Row>
-                        <Col><TaskItem taskItem={task}/></Col>
+                    <Row key={task.id}>
+                        <Col><TaskItem taskItem={task} /></Col>
                     </Row>
                 )}
             </Container>

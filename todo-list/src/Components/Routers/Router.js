@@ -7,7 +7,7 @@ const Router = () => {
     return (
         <CustomRouter history = {history}>
             <Switch>
-                <Route exact path="/" component={App} />
+                <Route path="/" component={App} />
             </Switch>
         </CustomRouter>
     )
