@@ -1,5 +1,5 @@
 import * as actions from '../Actions/ActionTypes';
-const api = "http://localhost:51484/"
+import { api } from './../Config'
 
 export const GetTasks = (title) => async dispatch => {
     
@@ -38,7 +38,15 @@ export const StartTask = (taskId) => async dispatch => {
 }
 
 export const EndTask = (taskId) => async dispatch => {
-
+    const url = `${api}tasks/${taskId}/stop`;
     
+    const response = await fetch(url, {
+        method: 'PUT',
+        headers : {
+            'Content-Type' : 'application/json'
+        }
+    })
+
+     if (response.status >= 200 &&  response.status <= 300)
         dispatch(actions.taskEnded(taskId, 1));
 }

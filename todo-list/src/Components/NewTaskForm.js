@@ -2,89 +2,124 @@
 import React, {useState} from 'react';
 import {Form, Col, InputGroup, Button } from 'react-bootstrap';
 
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
+
+
 export default () => {
     const [validated, setValidated] = useState(false);
-
+    const [date, setDate]=useState(null);
     const handleSubmit = event => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
+        const form = event.target;
+        
+        if (form.checkValidity() === false) {          
           event.preventDefault();
           event.stopPropagation();
+          setValidated(true);
+          return;
         }
-    
-        setValidated(true);
+        const data = {
+          name: form.elements.name.value,
+          priority: form.elements.priority.value,
+          lastName: form.elements.lastName.value,
+          email: form.elements.email.value,
+          title: form.elements.title.value,
+          description: form.elements.description.value,
+          category: form.elements.category.value,
+        }
+        console.log(data);
+        event.preventDefault();
+        
       };
 
-    return ( <Form noValidate validated={validated} onSubmit={handleSubmit}>
+      const handleDayClick = (day, { selected }) => {
+        setDate(day);
+        console.log(day.toLocaleDateString());
+      }
+
+    return ( 
+    <Form noValidate validated={validated} onSubmit={handleSubmit} method="POST">
         <Form.Row>
           <Form.Group as={Col} md="4" controlId="validationCustom01">
-            <Form.Label>First name</Form.Label>
+            <Form.Label>Imię</Form.Label>
             <Form.Control
+              name = "name"
               required
               type="text"
-              placeholder="First name"
-              defaultValue="Mark"
+              placeholder="Imię"              
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Podaj imie</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom02">
-            <Form.Label>Last name</Form.Label>
+            <Form.Label>Nazwisko</Form.Label>
             <Form.Control
+              name = "lastName"
               required
               type="text"
-              placeholder="Last name"
-              defaultValue="Otto"
+              placeholder="Nazwisko"              
             />
-            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Podaj nazwisko</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-            <Form.Label>Username</Form.Label>
-            <InputGroup>
-              <InputGroup.Prepend>
-                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-              </InputGroup.Prepend>
-              <Form.Control
-                type="text"
-                placeholder="Username"
-                aria-describedby="inputGroupPrepend"
-                required
-              />
-              <Form.Control.Feedback type="invalid">
-                Please choose a username.
-              </Form.Control.Feedback>
-            </InputGroup>
+          <Form.Group as={Col} md="4" controlId="validationCustom03">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              name = "email"
+              required
+              type="email"
+              placeholder="Email"              
+            />
+            <Form.Control.Feedback type="invalid">Podaj email</Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
         <Form.Row>
-          <Form.Group as={Col} md="6" controlId="validationCustom03">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="City" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid city.
-            </Form.Control.Feedback>
+          <Form.Group as={Col} md="4" controlId="validationCustom04">
+            <Form.Label>Kategoria</Form.Label>
+            <Form.Control
+              name = "category"
+              required
+              type="text"
+              placeholder="Kategoria"              
+            />
+            <Form.Control.Feedback type="invalid">Uwagi</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom04">
-            <Form.Label>State</Form.Label>
-            <Form.Control type="text" placeholder="State" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid state.
-            </Form.Control.Feedback>
+          <Form.Group as={Col} md="4" controlId="validationCustom05">
+            <Form.Label>Temat</Form.Label>
+            <Form.Control
+              name = "title"
+              required
+              type="text"
+              placeholder="Temat"              
+            />
+            <Form.Control.Feedback type="invalid">Uwagi</Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col} md="3" controlId="validationCustom05">
-            <Form.Label>Zip</Form.Label>
-            <Form.Control type="text" placeholder="Zip" required />
-            <Form.Control.Feedback type="invalid">
-              Please provide a valid zip.
-            </Form.Control.Feedback>
+          <Form.Group as={Col} md="4" controlId="validationCustom06">
+            <Form.Label>Uwagi</Form.Label>
+            <Form.Control              
+              name = "comments"
+              type="text"
+              placeholder="Uwagi"
+            />            
+          </Form.Group>           
+        </Form.Row>
+        <Form.Row>
+            <Form.Group as={Col} md="4" controlId="exampleForm.ControlTextarea1">
+              <Form.Label>Opis</Form.Label>
+              <Form.Control as="textarea" rows="3" name ="description" required />
+            </Form.Group>
+            <Form.Group as={Col} md="4" controlId="exampleForm.ControlSelect1">
+            <Form.Label>Wybierz priorytet</Form.Label>
+            <Form.Control as="select" name = "priority">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+            </Form.Control>
+          </Form.Group>
+          <Form.Group >          
+            <Form.Label>Data</Form.Label>
+            <DayPicker onDayClick={(day, { selected }) => handleDayClick(day, { selected }) } selectedDays={date} />      
           </Form.Group>
         </Form.Row>
-        <Form.Group>
-          <Form.Check
-            required
-            label="Agree to terms and conditions"
-            feedback="You must agree before submitting."
-          />
-        </Form.Group>
-        <Button type="submit">Submit form</Button>
-      </Form>)
+                       
+        <Button type="submit">Zapisz</Button>
+    </Form>)
 }

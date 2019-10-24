@@ -10,10 +10,9 @@ export const Layout = () => {
         <React.Fragment>
             <Navigationbar/>
             <Container>
-                <Switch>
-                    <Route exact path="/Tasks/NewTask" component = {NewTask} />
-                    <Route exact path="/Tasks/All" component = {TaskListContainer}/>
-                    
+                <Switch>                    
+                    <Route exact path={["/", "/Tasks" ,"/Tasks/All"]} component = {TaskListContainer}/>
+                    <Route exact path="/Tasks/NewTask" component = {NewTask} />                    
                 </Switch>                
             </Container>
         </React.Fragment>        
