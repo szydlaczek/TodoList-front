@@ -1,5 +1,6 @@
 import * as actions from '../Actions/ActionTypes';
 import { api } from './../Config'
+import {history} from './../Helpers/history';
 
 export const GetTasks = (title) => async dispatch => {
     
@@ -63,6 +64,6 @@ export const CreateTask = (data) =>  async dispatch => {
     });
 
     if (response.status === 201) {
-        alert("utworzono");
+        history.push("/Tasks/All")
     }
 }
