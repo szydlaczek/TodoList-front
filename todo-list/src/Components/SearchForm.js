@@ -5,7 +5,7 @@ export default (props) => {
 
     const submit = (e) => {
         const form = e.target;
-        if (props.onSearch != undefined) {
+        if (props.onSearch !== undefined) {
             props.onSearch(form.elements.search.value);
         }
         e.preventDefault();

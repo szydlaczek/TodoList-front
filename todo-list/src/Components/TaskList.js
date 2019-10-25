@@ -1,5 +1,5 @@
 import React from 'react';
-import {Row, Container, Col, Spinner } from 'react-bootstrap'
+import {Row, Container, Col } from 'react-bootstrap'
 import TaskItem from './TaskItem';
 
 export default  (props) => {
