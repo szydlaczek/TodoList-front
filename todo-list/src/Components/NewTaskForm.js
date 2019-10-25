@@ -1,14 +1,15 @@
 
 import React, {useState} from 'react';
-import {Form, Col, InputGroup, Button } from 'react-bootstrap';
+import {Form, Col, Button } from 'react-bootstrap';
 
-import DayPicker from 'react-day-picker';
+
 import 'react-day-picker/lib/style.css';
 
 
-export default () => {
+export default (props) => {
     const [validated, setValidated] = useState(false);
-    const [date, setDate]=useState(null);
+    
+    
     const handleSubmit = event => {
         const form = event.target;
         
@@ -26,16 +27,15 @@ export default () => {
           title: form.elements.title.value,
           description: form.elements.description.value,
           category: form.elements.category.value,
+          ExpirationDate: form.elements.ExpirationDate.value
         }
-        console.log(data);
+        
+        props.submitForm(data);
         event.preventDefault();
         
       };
 
-      const handleDayClick = (day, { selected }) => {
-        setDate(day);
-        console.log(day.toLocaleDateString());
-      }
+      
 
     return ( 
     <Form noValidate validated={validated} onSubmit={handleSubmit} method="POST">
@@ -80,7 +80,7 @@ export default () => {
               type="text"
               placeholder="Kategoria"              
             />
-            <Form.Control.Feedback type="invalid">Uwagi</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">Podaj kategorie</Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col} md="4" controlId="validationCustom05">
             <Form.Label>Temat</Form.Label>
@@ -109,14 +109,19 @@ export default () => {
             <Form.Group as={Col} md="4" controlId="exampleForm.ControlSelect1">
             <Form.Label>Wybierz priorytet</Form.Label>
             <Form.Control as="select" name = "priority">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
+              <option>Info</option>
+              <option>Warning</option>
+              <option>Error</option>
             </Form.Control>
           </Form.Group>
-          <Form.Group >          
-            <Form.Label>Data</Form.Label>
-            <DayPicker onDayClick={(day, { selected }) => handleDayClick(day, { selected }) } selectedDays={date} />      
+          <Form.Group as={Col} md="4">            
+            <Form.Label>Data ważności</Form.Label>
+            <Form.Control
+              name = "ExpirationDate"
+              required
+              type="date"                            
+            />
+            <Form.Control.Feedback type="invalid">Podaj date</Form.Control.Feedback>
           </Form.Group>
         </Form.Row>
                        
